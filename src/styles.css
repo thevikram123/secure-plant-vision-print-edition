@@ -320,9 +320,14 @@
 
   .why-now-outcomes,
   .segment-board,
+  .section-02-infographic,
+  .section-03-infographic,
+  .section-08-infographic,
+  .section-10-infographic > div > div,
   #why-now > div > div:last-child,
   #segments > div > div:last-child {
     break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   .architecture-layer-detail,

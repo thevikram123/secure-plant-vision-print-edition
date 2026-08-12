@@ -1,5 +1,6 @@
 import {
   AlertTriangle,
+  ArrowRight,
   BarChart3,
   Building2,
   Cpu,
@@ -9,71 +10,57 @@ import {
   ShieldCheck,
   Target,
 } from "lucide-react";
+
 import { SectionShell } from "./SectionShell";
-import { AccentCard, AccentMedallion, type AccentSlot } from "./AccentCard";
 
-import grid from "@/assets/why-1-grid.jpg";
-import threat from "@/assets/why-2-threat.jpg";
-import plant from "@/assets/why-3-plant.jpg";
-import videowall from "@/assets/why-4-videowall.jpg";
-import kpi from "@/assets/why-5-kpi.jpg";
-import platform from "@/assets/why-6-platform.jpg";
-
-const drivers: {
-  icon: typeof ShieldCheck;
-  slot: AccentSlot;
-  image: string;
-  title: string;
-  body: string;
-}[] = [
+const drivers = [
   {
     icon: ShieldCheck,
-    slot: 1,
-    image: grid,
-    title: "Critical Infrastructure Is Now a National Security Asset",
-    body: "Power generation is a critical infrastructure sector, and designated systems and assets may fall within India's Critical Information Infrastructure protection framework. A security incident no longer affects a plant alone—it can cascade across grid operations, fuel logistics, evacuation infrastructure, and regional economic activity.",
+    label: "Critical infrastructure",
+    detail: "A plant incident can cascade into grid, fuel and regional continuity impacts.",
+    signal: "National consequence",
   },
   {
     icon: AlertTriangle,
-    slot: 2,
-    image: threat,
-    title: "Threats Have Changed from Theft to Operational Disruption",
-    body: "Traditional perimeter threats now coexist with coordinated intrusion, insider risk, drone reconnaissance, cyber-physical attacks, contractor vulnerabilities, and deliberate disruption of critical operations.",
+    label: "Threat convergence",
+    detail: "Intrusion, insider, drone and cyber-physical threats now overlap.",
+    signal: "Blended threat",
   },
   {
     icon: Building2,
-    slot: 3,
-    image: plant,
-    title: "Security Must Match Plant Risk",
-    body: "Plant risk is not uniform. Security architecture must reflect asset scale, terrain, fuel type, population density, contractor flows, and local threat conditions.",
+    label: "Plant-specific risk",
+    detail: "Terrain, fuel, workforce and asset criticality change the control design.",
+    signal: "Context matters",
   },
   {
     icon: Layers,
-    slot: 4,
-    image: videowall,
-    title: "Existing Surveillance Estates Are Reaching Their Limits",
-    body: "Many plants already operate hundreds of cameras. The challenge is no longer video acquisition—it is integrating surveillance, access control, analytics, incident workflows and command visibility into a single operational architecture.",
+    label: "Fragmented estates",
+    detail: "Cameras, access systems and alarms often operate without one incident picture.",
+    signal: "Siloed control",
   },
   {
     icon: BarChart3,
-    slot: 5,
-    image: kpi,
-    title: "Security Performance is becoming Measurable",
-    body: "Security performance increasingly influences operational continuity, contractor governance, regulatory audits, emergency preparedness and insurance exposure. Modern security programmes are measured through response times, incident intelligence and operational resilience rather than camera counts.",
+    label: "Measurable performance",
+    detail: "Response time, alarm quality and resilience now matter more than camera count.",
+    signal: "Outcome-led KPI",
   },
   {
     icon: Cpu,
-    slot: 6,
-    image: platform,
-    title: "Modernization Requires an Enterprise Platform",
-    body: "The next generation of plant security is built around integrated command platforms combining AI-enabled video analytics, perimeter intelligence, access management, drone awareness, GIS, OT integration and decision-support workflows.",
+    label: "Enterprise platform",
+    detail: "Analytics, GIS, OT context and workflows must converge in the command centre.",
+    signal: "Integrated decision",
   },
 ];
 
-const outcomes: { label: string; slot: AccentSlot; icon: typeof Target }[] = [
-  { label: "Detect earlier.", slot: 1, icon: Target },
-  { label: "Decide faster.", slot: 2, icon: Gauge },
-  { label: "Recover with less operational impact.", slot: 3, icon: HandHeart },
+const outcomes = [
+  { icon: Target, value: "01", label: "Detect earlier", note: "See weak signals before impact" },
+  { icon: Gauge, value: "02", label: "Decide faster", note: "Correlate context at the ICCC" },
+  {
+    icon: HandHeart,
+    value: "03",
+    label: "Recover better",
+    note: "Limit operational disruption",
+  },
 ];
 
 export function WhyNow() {
@@ -82,79 +69,115 @@ export function WhyNow() {
       id="why-now"
       eyebrow="Section 02"
       title="Why Security Architecture Has Become a Generation Imperative"
-      intro="Six strategic drivers are reshaping how power generation companies in India must think about physical security, OT resilience and command-centre capability."
+      intro="The risk equation has shifted: wider consequences and converging threats now demand an integrated, measurable security operating model."
       tone="cream"
     >
-      <div className="why-now-outcomes mb-10 grid gap-5 xl:grid-cols-[minmax(0,1fr)_17rem] xl:items-center">
-        <div className="grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline sm:grid-cols-3">
-          {outcomes.map((o) => (
+      <div className="section-02-infographic overflow-hidden rounded-[1.75rem] border border-hairline bg-surface shadow-card">
+        <div className="grid lg:grid-cols-[1fr_14rem_1fr]">
+          <div className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-1">
+            {drivers.slice(0, 3).map((driver, index) => (
+              <DriverNode key={driver.label} driver={driver} number={index + 1} align="right" />
+            ))}
+          </div>
+
+          <div className="relative flex min-h-72 flex-col items-center justify-center overflow-hidden bg-navy px-6 py-10 text-center text-navy-foreground">
+            <span className="absolute inset-x-0 top-0 h-1.5 bg-[#ffe600]" />
             <div
-              key={o.label}
-              style={{ ["--a" as string]: "#ffe600" }}
-              className="relative flex min-h-24 items-center gap-3 bg-surface px-5 py-4"
-            >
-              <span aria-hidden className="absolute left-0 top-0 h-1 w-full bg-[color:var(--a)]" />
-              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[color:var(--a)] text-white">
-                <o.icon className="h-[1.15rem] w-[1.15rem]" />
-              </span>
-              <p className="max-w-[11rem] text-base font-bold uppercase leading-tight tracking-wide text-[color:var(--a)]">
-                {o.label}
-              </p>
-            </div>
-          ))}
-        </div>
-        <p className="rounded-xl border border-border bg-card p-4 text-base leading-relaxed text-muted-foreground shadow-card">
-          The three operational outcomes that every surveillance, access and command-centre
-          investment must be judged against.
-        </p>
-      </div>
-
-      <div className="grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline md:grid-cols-2 xl:grid-cols-3">
-        {drivers.map((driver, i) => (
-          <AccentCard key={driver.title} slot={2} className="rounded-none border-0 shadow-none">
-            <img
-              src={driver.image}
-              alt=""
               aria-hidden
-              loading="lazy"
-              width={768}
-              height={768}
+              className="absolute inset-0 opacity-[0.08]"
               style={{
-                maskImage: "linear-gradient(to left, black 40%, transparent 96%)",
-                WebkitMaskImage: "linear-gradient(to left, black 40%, transparent 96%)",
+                backgroundImage:
+                  "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+                backgroundSize: "28px 28px",
               }}
-              className="pointer-events-none absolute right-0 top-0 hidden h-full w-[42%] object-cover opacity-90 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-100 sm:block"
             />
-            <div className="relative sm:max-w-[58%]">
-              <div className="flex items-start gap-3">
-                <AccentMedallion>
-                  <driver.icon className="h-5 w-5" />
-                </AccentMedallion>
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[color:var(--a)]">
-                    Risk driver {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="mt-1 text-base font-bold leading-snug text-ey-green-deep md:text-lg">
-                    {driver.title}
-                  </h3>
-                </div>
-              </div>
-              <p className="mt-3 text-base leading-relaxed text-muted-foreground">{driver.body}</p>
+            <div className="relative grid h-28 w-28 place-items-center rounded-full border border-[#ffe600]/60 bg-[#ffe600]/10">
+              <ShieldCheck className="h-10 w-10 text-[#ffe600]" strokeWidth={1.4} />
+              <span className="absolute inset-2 rounded-full border border-white/10" />
             </div>
-          </AccentCard>
-        ))}
-      </div>
+            <p className="relative mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-[#ffe600]">
+              Required response
+            </p>
+            <h3 className="relative mt-2 text-xl font-semibold leading-tight">
+              Integrated security architecture
+            </h3>
+            <p className="relative mt-3 text-sm leading-relaxed text-navy-muted">
+              One risk picture across field, network, analytics, command and response.
+            </p>
+          </div>
 
-      <div className="mt-8 flex items-center gap-4 rounded-2xl bg-ey-green-deep px-5 py-6 shadow-lift md:px-8">
-        <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ey-gold/60 text-ey-gold sm:inline-flex">
-          <ShieldCheck aria-hidden className="h-5 w-5" />
-        </span>
-        <p className="text-base font-medium leading-relaxed text-white md:text-lg">
-          Security is no longer a support function. It is a{" "}
-          <span className="font-bold text-ey-gold">force multiplier</span> for reliability, safety
-          and national resilience.
-        </p>
+          <div className="grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-1">
+            {drivers.slice(3).map((driver, index) => (
+              <DriverNode key={driver.label} driver={driver} number={index + 4} align="left" />
+            ))}
+          </div>
+        </div>
+
+        <div className="border-t border-hairline bg-ey-cream px-5 py-5 md:px-7">
+          <div className="grid items-stretch gap-3 md:grid-cols-[auto_1fr_auto_1fr_auto]">
+            {outcomes.map((outcome, index) => (
+              <div key={outcome.label} className="contents">
+                <div className="flex items-center gap-3 rounded-xl bg-surface px-4 py-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#ffe600] text-navy">
+                    <outcome.icon className="h-5 w-5" strokeWidth={1.8} />
+                  </span>
+                  <div>
+                    <p className="font-mono text-xs font-semibold tracking-[0.16em] text-muted-foreground">
+                      OUTCOME {outcome.value}
+                    </p>
+                    <p className="mt-1 font-semibold text-ey-green-deep">{outcome.label}</p>
+                    <p className="mt-0.5 text-sm text-muted-foreground">{outcome.note}</p>
+                  </div>
+                </div>
+                {index < outcomes.length - 1 ? (
+                  <ArrowRight className="mx-auto hidden self-center text-ey-green-deep/35 md:block" />
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </SectionShell>
+  );
+}
+
+function DriverNode({
+  driver,
+  number,
+  align,
+}: {
+  driver: (typeof drivers)[number];
+  number: number;
+  align: "left" | "right";
+}) {
+  return (
+    <article className="relative flex min-h-36 items-start gap-4 bg-surface px-5 py-5">
+      {align === "right" ? (
+        <span
+          aria-hidden
+          className="absolute right-0 top-1/2 hidden h-px w-6 bg-[#ffe600] lg:block"
+        />
+      ) : (
+        <span
+          aria-hidden
+          className="absolute left-0 top-1/2 hidden h-px w-6 bg-[#ffe600] lg:block"
+        />
+      )}
+      <span className="font-mono text-sm font-semibold text-muted-foreground/60">
+        {String(number).padStart(2, "0")}
+      </span>
+      <div className="min-w-0">
+        <div className="flex items-center gap-2.5">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#ffe600] text-navy">
+            <driver.icon className="h-4 w-4" strokeWidth={1.8} />
+          </span>
+          <p className="font-semibold leading-tight text-ey-green-deep">{driver.label}</p>
+        </div>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{driver.detail}</p>
+        <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-ey-green-deep/70">
+          {driver.signal}
+        </p>
+      </div>
+    </article>
   );
 }

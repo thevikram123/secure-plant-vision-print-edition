@@ -1,168 +1,125 @@
-import { ClipboardCheck, FileText, Handshake, Settings, ShieldCheck } from "lucide-react";
+import {
+  ArrowRight,
+  ClipboardCheck,
+  FileText,
+  Handshake,
+  Settings,
+  ShieldCheck,
+} from "lucide-react";
+
 import { SectionShell } from "./SectionShell";
 
 const stages = [
   {
     icon: ClipboardCheck,
     phase: "Diagnose",
-    items: [
-      "Security maturity assessment",
-      "Site risk assessment",
-      "Coverage and gap analysis",
-      "Threat and zoning baseline",
-    ],
+    verb: "Know the risk",
+    output: "Fact base",
+    items: ["Maturity assessment", "Site risk and zoning", "Coverage and control gaps"],
   },
   {
     icon: FileText,
     phase: "Design",
-    items: [
-      "To-be integrated architecture",
-      "Zoning and control mapping",
-      "Phasing and CAPEX bands",
-      "DPR preparation",
-    ],
+    verb: "Define the target",
+    output: "Target state",
+    items: ["Integrated architecture", "Control mapping", "DPR and CAPEX phasing"],
   },
   {
     icon: Handshake,
     phase: "Procure",
-    items: [
-      "Technical specifications",
-      "BoQ and cost estimation",
-      "RFP drafting",
-      "Vendor evaluation framework",
-    ],
+    verb: "Make it buyable",
+    output: "Tender pack",
+    items: ["Specifications and BoQ", "RFP drafting", "Vendor evaluation"],
   },
   {
     icon: Settings,
     phase: "Deliver",
-    items: [
-      "Implementation PMU / PMC",
-      "Milestone and issue governance",
-      "FAT, SAT and UAT support",
-      "SOP design and training",
-    ],
+    verb: "Control execution",
+    output: "Working system",
+    items: ["PMU / PMC governance", "FAT, SAT and UAT", "SOPs and training"],
   },
   {
     icon: ShieldCheck,
     phase: "Assure",
-    items: [
-      "Acceptance sign-off",
-      "SLA and O&M framework",
-      "KPI and uptime reporting",
-      "Continuous improvement roadmap",
-    ],
+    verb: "Sustain value",
+    output: "Operational control",
+    items: ["Acceptance sign-off", "SLA and O&M model", "KPI improvement loop"],
   },
 ];
-
-const stance = ["Vendor-neutral", "Governance-led", "Implementation-oriented"];
 
 export function Offerings() {
   return (
     <SectionShell
       id="offerings"
       eyebrow="Section 08"
-      title="How EY Can Support"
-      intro="One advisory lifecycle — Diagnose, Design, Procure, Deliver, Assure — with defined outputs at every stage."
+      title="One Advisory Lifecycle—from Risk Discovery to Operational Assurance"
+      intro="Each stage converts uncertainty into a decision-ready artefact, with governance and vendor neutrality running through the full programme."
+      tone="tint"
     >
-      {/* Desktop ribbon */}
-      <div className="hidden lg:block">
-        <div className="grid grid-cols-5 overflow-hidden rounded-lg bg-navy text-navy-foreground">
-          {stages.map((s, i) => (
-            <div
-              key={s.phase}
-              className="relative flex items-center gap-3 px-6 py-4 [&:not(:first-child)]:pl-8"
-            >
-              {i > 0 ? (
-                <span
-                  aria-hidden
-                  className="absolute left-0 top-0 h-full w-px bg-navy-foreground/20"
-                />
-              ) : null}
-              <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-brand/20 text-brand">
-                <s.icon className="h-4 w-4" />
-              </span>
-              <div className="min-w-0">
-                <p className="font-mono text-base font-semibold tracking-[0.16em] text-brand">
-                  {String(i + 1).padStart(2, "0")}
+      <div className="section-08-infographic overflow-hidden rounded-[1.75rem] border border-hairline bg-surface shadow-card">
+        <div className="relative px-5 py-7 md:px-7">
+          <div className="absolute left-[10%] right-[10%] top-[5.2rem] hidden h-px bg-hairline lg:block" />
+          <div className="grid gap-4 lg:grid-cols-5">
+            {stages.map((stage, index) => (
+              <article key={stage.phase} className="relative flex flex-col">
+                <div className="relative z-10 flex items-center gap-3 lg:flex-col lg:text-center">
+                  <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full border-4 border-surface bg-navy text-[#ffe600] ring-1 ring-hairline">
+                    <stage.icon className="h-5 w-5" strokeWidth={1.7} />
+                  </span>
+                  <div>
+                    <p className="font-mono text-xs font-semibold tracking-[0.16em] text-muted-foreground">
+                      PHASE {String(index + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="mt-1 text-lg font-semibold text-ey-green-deep">{stage.phase}</h3>
+                    <p className="mt-1 text-sm font-medium text-muted-foreground">{stage.verb}</p>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex flex-1 flex-col rounded-xl bg-ey-cream p-4">
+                  <ul className="space-y-2.5">
+                    {stage.items.map((item) => (
+                      <li key={item} className="flex gap-2 text-sm leading-snug text-foreground/90">
+                        <span className="mt-[0.4rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#ffe600] ring-2 ring-[#ffe600]/25" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-5 border-t border-hairline pt-3">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                      Decision output
+                    </p>
+                    <p className="mt-1 font-semibold text-ey-green-deep">{stage.output}</p>
+                  </div>
+                </div>
+
+                {index < stages.length - 1 ? (
+                  <ArrowRight className="absolute -right-3 top-[3.95rem] z-20 hidden h-5 w-5 rounded-full bg-surface p-1 text-ey-green-deep/45 lg:block" />
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-px border-t border-hairline bg-hairline md:grid-cols-[1fr_auto_1fr_auto_1fr]">
+          {[
+            ["Vendor-neutral", "Control choices without OEM bias"],
+            ["Governance-led", "Gates, evidence and accountable decisions"],
+            ["Implementation-oriented", "Specifications that survive rollout"],
+          ].map(([title, body], index) => (
+            <div key={title} className="contents">
+              <div className="bg-navy px-6 py-5 text-navy-foreground">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#ffe600]">
+                  {title}
                 </p>
-                <p className="truncate text-base font-semibold">{s.phase}</p>
+                <p className="mt-1 text-sm text-navy-muted">{body}</p>
               </div>
-              {i < stages.length - 1 ? (
-                <span
-                  aria-hidden
-                  className="absolute right-[-0.4rem] top-1/2 z-10 -translate-y-1/2 text-base text-brand"
-                >
-                  ▶
-                </span>
+              {index < 2 ? (
+                <ArrowRight className="mx-2 hidden self-center text-[#ffe600] md:block" />
               ) : null}
             </div>
           ))}
         </div>
-
-        <div className="grid grid-cols-5">
-          {stages.map((s) => (
-            <div key={s.phase} className="px-6 pt-0">
-              <span aria-hidden className="mx-auto block h-6 w-px bg-hairline" />
-              <ul className="space-y-2.5">
-                {s.items.map((item) => (
-                  <li
-                    key={item}
-                    className="flex gap-2 text-base leading-snug text-foreground/90"
-                  >
-                    <span
-                      aria-hidden
-                      className="mt-[0.42rem] h-1 w-1 shrink-0 rounded-full bg-brand"
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
       </div>
-
-      {/* Mobile / tablet vertical rail */}
-      <div className="relative lg:hidden">
-        <span aria-hidden className="absolute left-4 top-2 bottom-2 w-px bg-hairline" />
-        <div className="space-y-7">
-          {stages.map((s, i) => (
-            <div key={s.phase} className="relative pl-12">
-              <span className="absolute left-0 top-0 inline-flex h-8 w-8 items-center justify-center rounded-md bg-navy text-navy-foreground">
-                <s.icon className="h-4 w-4" />
-              </span>
-              <p className="font-mono text-base font-semibold tracking-[0.16em] text-brand">
-                {String(i + 1).padStart(2, "0")}
-              </p>
-              <p className="text-base font-semibold">{s.phase}</p>
-              <ul className="mt-2.5 space-y-2">
-                {s.items.map((item) => (
-                  <li key={item} className="flex gap-2 text-base leading-snug text-foreground/90">
-                    <span
-                      aria-hidden
-                      className="mt-[0.42rem] h-1 w-1 shrink-0 rounded-full bg-brand"
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <p className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-hairline pt-5 text-base text-muted-foreground">
-        {stance.map((s, i) => (
-          <span key={s} className="flex items-center gap-3">
-            {i > 0 ? <span aria-hidden className="text-hairline">/</span> : null}
-            <span className="font-semibold text-foreground/90">{s}</span>
-          </span>
-        ))}
-        <span className="basis-full sm:basis-auto">
-          — no product or OEM interest; specifications, SLAs and acceptance criteria that hold
-          through rollout and go-live.
-        </span>
-      </p>
     </SectionShell>
   );
 }

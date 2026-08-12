@@ -1,6 +1,5 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
-import heroImage from "@/assets/hero-power-plant.jpg.asset.json";
-
+import heroImage from "@/assets/hero-command-centre.jpg";
 
 const markers = [
   "Perimeter & Asset Protection",
@@ -11,9 +10,12 @@ const markers = [
 
 export function Hero() {
   return (
-    <section id="top" className="relative scroll-mt-24 overflow-hidden bg-navy text-navy-foreground">
+    <section
+      id="top"
+      className="relative scroll-mt-24 overflow-hidden bg-navy text-navy-foreground"
+    >
       <img
-        src={heroImage.url}
+        src={heroImage}
         alt="A modern power generation plant at dusk, showing cooling towers, turbine hall, and high-voltage switchyard"
         width={1920}
         height={1080}

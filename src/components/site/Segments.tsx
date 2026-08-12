@@ -1,6 +1,7 @@
 import { Cog, Network, ShieldAlert } from "lucide-react";
 import { SectionShell } from "./SectionShell";
 import { cn } from "@/lib/utils";
+import heroImage from "@/assets/hero-command-centre.jpg";
 
 const archetypes = [
   {
@@ -71,7 +72,7 @@ export function Segments() {
       intro="An operator's starting point — not its sector label — determines where the modernisation strategy should begin."
       headerMedia={
         <img
-          src="/__l5e/assets-v1/5f7691a3-1699-4377-b783-53444d7a5935/hero-power-plant.jpg"
+          src={heroImage}
           alt="Power generation plant"
           className="h-32 w-full rounded-lg object-cover opacity-90 shadow-card lg:h-40"
         />

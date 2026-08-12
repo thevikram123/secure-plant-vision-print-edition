@@ -318,6 +318,19 @@
     break-inside: avoid;
   }
 
+  .section-07-register {
+    break-before: page;
+  }
+
+  .scenario-group {
+    break-inside: auto;
+  }
+
+  .scenario-record {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
   .why-now-outcomes,
   .segment-board,
   .section-02-infographic,

@@ -331,6 +331,36 @@
     page-break-inside: avoid;
   }
 
+  .section-07-summary {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .annexure-screen-nav {
+    display: none !important;
+  }
+
+  .annexure-cover {
+    break-after: page;
+    min-height: 273mm !important;
+    padding: 0 !important;
+  }
+
+  .annexure-guide {
+    break-after: page;
+    padding: 14mm 0 !important;
+  }
+
+  .annexure-group {
+    break-before: page;
+    padding: 10mm 0 !important;
+  }
+
+  .annexure-record {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
   .why-now-outcomes,
   .segment-board,
   .section-02-infographic,

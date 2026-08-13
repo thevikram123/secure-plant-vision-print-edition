@@ -249,8 +249,8 @@
 /* Print edition: each section becomes a self-contained A4 reading page. */
 @media print {
   @page {
-    size: A4 portrait;
-    margin: 12mm;
+    size: A4 landscape;
+    margin: 0;
   }
 
   html {
@@ -277,7 +277,8 @@
     max-height: none !important;
     overflow: visible !important;
     padding: 10mm 0 !important;
-    zoom: 1 !important;
+    width: 133.333% !important;
+    zoom: 0.75 !important;
   }
 
   main > section:last-child {
@@ -315,7 +316,7 @@
 
   article,
   aside {
-    break-inside: avoid;
+    break-inside: auto;
   }
 
   .section-07-register {
@@ -331,47 +332,86 @@
     page-break-inside: avoid;
   }
 
-  .section-07-summary {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
   .annexure-screen-nav {
     display: none !important;
   }
 
   .annexure-cover {
     break-after: page;
-    min-height: 273mm !important;
+    min-height: 210mm !important;
+    height: 210mm !important;
     padding: 0 !important;
   }
 
   .annexure-guide {
     break-after: page;
-    padding: 14mm 0 !important;
+    min-height: 210mm !important;
+    height: 210mm !important;
+    padding: 14mm !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  .annexure-guide > div:last-child {
+    flex: 1 !important;
+    align-items: stretch !important;
+  }
+
+  .annexure-guide > div:last-child > div {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 
   .annexure-group {
     break-before: page;
-    padding: 10mm 0 !important;
+    min-height: 210mm !important;
+    height: 210mm !important;
+    padding: 10mm 14mm !important;
+    display: grid !important;
+    grid-template-rows: auto minmax(0, 1fr) !important;
+    box-sizing: border-box !important;
+  }
+
+  .annexure-group > div:last-child {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: 1fr !important;
+    min-height: 0 !important;
   }
 
   .annexure-record {
     break-inside: avoid;
     page-break-inside: avoid;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
   }
 
-  .why-now-outcomes,
-  .segment-board,
-  .section-02-infographic,
-  .section-03-infographic,
-  .section-07-infographic,
-  .section-08-infographic,
-  .section-10-infographic > div > div,
-  #why-now > div > div:last-child,
-  #segments > div > div:last-child {
-    break-inside: avoid;
-    page-break-inside: avoid;
+  .annexure-record > div:last-child {
+    margin-top: auto !important;
+  }
+
+  .annexure-root header,
+  .annexure-root nav {
+    display: none !important;
+  }
+
+  .annexure-document > section {
+    max-height: 210mm !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    zoom: 1 !important;
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  a[href]::after {
+    content: none !important;
   }
 
   .architecture-layer-detail,

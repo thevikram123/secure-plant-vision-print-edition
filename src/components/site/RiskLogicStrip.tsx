@@ -10,8 +10,8 @@ const factors = [
 
 export function RiskLogicStrip() {
   return (
-    <section className="bg-navy py-10 text-navy-foreground md:py-12">
-      <div className="mx-auto w-full max-w-6xl px-5 md:px-8">
+    <div className="mt-6 rounded-2xl bg-navy py-6 text-navy-foreground">
+      <div className="w-full px-5 md:px-6">
         <div className="flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between md:gap-10">
           <div className="flex items-center gap-3">
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-brand/15 text-ey-gold">
@@ -46,8 +46,10 @@ export function RiskLogicStrip() {
           This is the decision rule that determines why one plant receives thermal cameras and fibre
           PIDS while another receives standard CCTV plus access-control rationalisation. Controls are
           derived from risk, not from product availability.
+          Zone boundaries, block inventory and control selection are confirmed against plant layout
+          drawings during the as-is assessment.
         </p>
       </div>
-    </section>
+    </div>
   );
 }

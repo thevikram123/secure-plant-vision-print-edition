@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { ArrowRight, Check, MousePointerClick, ShieldAlert } from "lucide-react";
 
 import { SectionShell } from "./SectionShell";
+import { RiskLogicStrip } from "./RiskLogicStrip";
 import {
   plantBlocksByType,
   plantTypes,
@@ -285,10 +286,8 @@ export function PlantBlocks() {
         </aside>
       </div>
 
-      <p className="mt-6 text-base text-muted-foreground">
-        Note: zone boundaries, block inventory and control selection to be confirmed against plant
-        layout drawings during the as-is assessment.
-      </p>
+      <RiskLogicStrip />
+
     </SectionShell>
   );
 }

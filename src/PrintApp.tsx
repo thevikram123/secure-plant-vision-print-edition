@@ -4,7 +4,6 @@ import { Hero } from "@/components/site/Hero";
 import { WhyNow } from "@/components/site/WhyNow";
 import { Segments } from "@/components/site/Segments";
 import { PlantBlocks } from "@/components/site/PlantBlocks";
-import { RiskLogicStrip } from "@/components/site/RiskLogicStrip";
 import { AsIsAssessment } from "@/components/site/AsIsAssessment";
 import { ToBeArchitecture } from "@/components/site/ToBeArchitecture";
 import { UseCases } from "@/components/site/UseCases";
@@ -24,7 +23,6 @@ export function PrintApp() {
         <WhyNow />
         <Segments />
         <PlantBlocks />
-        <RiskLogicStrip />
         <AsIsAssessment />
         <ToBeArchitecture />
         <UseCases />

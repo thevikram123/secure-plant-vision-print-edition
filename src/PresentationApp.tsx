@@ -14,6 +14,8 @@ import { WhyEy } from "@/components/site/WhyEy";
 import { CredentialsFootprint, PowerEngagements } from "@/components/site/Credentials";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
+const PRESENTATION_NAV_HEIGHT = 44;
+
 const slides: Array<{ id: string; label: string; Component: ComponentType }> = [
   { id: "top", label: "Overview", Component: Hero },
   { id: "why-now", label: "Why now", Component: WhyNow },
@@ -67,7 +69,7 @@ export function PresentationApp() {
   const fitSlides = useCallback(() => {
     const root = rootRef.current;
     if (!root) return;
-    const availableHeight = window.innerHeight - 64;
+    const availableHeight = window.innerHeight - PRESENTATION_NAV_HEIGHT;
     const viewportWidth = window.innerWidth;
 
     root.querySelectorAll<HTMLElement>(".presentation-slide").forEach((frame) => {
@@ -85,24 +87,35 @@ export function PresentationApp() {
       section.style.overflowY = "visible";
       if (inner) inner.style.maxWidth = `${Math.max(1152, viewportWidth - 96)}px`;
 
-      const baseHeight = Math.max(section.scrollHeight, section.offsetHeight);
-      const maxScale = section.id === "why-ey" ? 1.16 : 1;
+      const maxScale = section.id === "top" || section.id === "closing" ? 1 : 1.3;
       const minReadableScale = section.id === "to-be" ? 0.82 : 0;
-      const baseScale = Math.max(
-        minReadableScale,
-        Math.min(maxScale, availableHeight / baseHeight),
-      );
-      const canvasWidth = viewportWidth / baseScale;
+
+      // Responsive layouts change height as their width changes. Search for the
+      // largest scale that fits after reflow instead of reserving an empty band.
+      let low = 0.35;
+      let high = maxScale;
+      let fittedScale = low;
+      for (let pass = 0; pass < 14; pass += 1) {
+        const candidate = (low + high) / 2;
+        const candidateWidth = viewportWidth / candidate;
+        canvas.style.width = `${candidateWidth}px`;
+        section.style.width = `${candidateWidth}px`;
+        if (inner) inner.style.maxWidth = `${Math.max(1152, candidateWidth - 96)}px`;
+        const candidateHeight = Math.max(section.scrollHeight, section.offsetHeight);
+        if (candidateHeight * candidate <= availableHeight + 0.5) {
+          fittedScale = candidate;
+          low = candidate;
+        } else {
+          high = candidate;
+        }
+      }
+
+      const scale = Math.max(minReadableScale, fittedScale);
+      const canvasWidth = viewportWidth / scale;
       canvas.style.width = `${canvasWidth}px`;
       section.style.width = `${canvasWidth}px`;
       if (inner) inner.style.maxWidth = `${Math.max(1152, canvasWidth - 96)}px`;
-
-      const widenedHeight = Math.max(section.scrollHeight, section.offsetHeight);
-      const scale = minReadableScale
-        ? baseScale
-        : Math.min(baseScale, availableHeight / widenedHeight);
-      const renderedWidth = canvasWidth * scale;
-      canvas.style.left = `${(window.innerWidth - renderedWidth) / 2}px`;
+      canvas.style.left = "0px";
       canvas.style.transform = `scale(${scale})`;
       frame.style.backgroundColor = getComputedStyle(section).backgroundColor;
     });
@@ -182,7 +195,7 @@ export function PresentationApp() {
   return (
     <div
       ref={rootRef}
-      className="presentation-root relative h-screen w-screen overflow-hidden bg-navy"
+      className="presentation-root relative flex h-screen w-screen flex-col overflow-hidden bg-navy"
       onWheel={onWheel}
       onPointerDown={(event) => {
         if ((event.target as HTMLElement | null)?.closest(".presentation-header")) return;
@@ -195,21 +208,21 @@ export function PresentationApp() {
         goTo(active + (event.clientX < start ? 1 : -1));
       }}
     >
-      <header className="presentation-header relative z-50 flex h-16 items-center border-b border-white/10 bg-[#1f1b19] px-4 text-white">
-        <a href="./" className="flex shrink-0 items-baseline gap-2 pr-4">
-          <span className="text-lg font-semibold">EY</span>
+      <header className="presentation-header order-2 relative z-50 flex h-11 shrink-0 items-center border-t border-white/10 bg-[#1f1b19] px-3 text-white">
+        <a href="./" className="flex shrink-0 items-baseline gap-1.5 pr-3">
+          <span className="text-sm font-semibold">EY</span>
           <span className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white/45 2xl:inline">
             Security modernization
           </span>
         </a>
 
-        <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto py-2" aria-label="Presentation sections">
+        <nav className="flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto py-1" aria-label="Presentation sections">
           {slides.map((slide, index) => (
             <button
               key={slide.id}
               type="button"
               onClick={() => goTo(index)}
-              className={`shrink-0 rounded-full px-3 py-2 text-[11px] font-semibold whitespace-nowrap transition-colors ${
+              className={`shrink-0 rounded-full px-2.5 py-1.5 text-[10px] font-semibold whitespace-nowrap transition-colors ${
                 index === active
                   ? "bg-[#ffe600] text-[#1f1b19]"
                   : "text-white/60 hover:bg-white/10 hover:text-white"
@@ -220,12 +233,12 @@ export function PresentationApp() {
           ))}
         </nav>
 
-        <div className="ml-3 flex shrink-0 items-center gap-1 border-l border-white/15 pl-3">
+        <div className="ml-2 flex shrink-0 items-center gap-0.5 border-l border-white/15 pl-2">
           <button
             type="button"
             onClick={() => goTo(active - 1)}
             disabled={active === 0}
-            className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10 disabled:opacity-30"
+            className="grid h-8 w-8 place-items-center rounded-full transition-colors hover:bg-white/10 disabled:opacity-30"
             aria-label="Previous slide"
           >
             <ArrowLeft size={17} />
@@ -237,7 +250,7 @@ export function PresentationApp() {
             type="button"
             onClick={() => goTo(active + 1)}
             disabled={active === slides.length - 1}
-            className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10 disabled:opacity-30"
+            className="grid h-8 w-8 place-items-center rounded-full transition-colors hover:bg-white/10 disabled:opacity-30"
             aria-label="Next slide"
           >
             <ArrowRight size={17} />
@@ -245,21 +258,21 @@ export function PresentationApp() {
           <button
             type="button"
             onClick={toggleFullscreen}
-            className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10"
+            className="grid h-8 w-8 place-items-center rounded-full transition-colors hover:bg-white/10"
             aria-label={fullscreen ? "Exit full screen" : "Enter full screen"}
           >
             <Expand size={16} />
           </button>
           <a
             href="./"
-            className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10"
+            className="grid h-8 w-8 place-items-center rounded-full transition-colors hover:bg-white/10"
             aria-label="Exit presentation"
           >
             <X size={17} />
           </a>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-black/20">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-0.5 bg-black/20">
           <div
             className="h-full bg-[#ffe600] transition-[width] duration-500"
             style={{ width: `${((active + 1) / slides.length) * 100}%` }}
@@ -268,7 +281,7 @@ export function PresentationApp() {
       </header>
 
       <main
-        className="flex h-[calc(100vh-4rem)] transition-transform duration-500 ease-[cubic-bezier(.22,.8,.24,1)] motion-reduce:transition-none"
+        className="order-1 flex h-[calc(100vh-2.75rem)] transition-transform duration-500 ease-[cubic-bezier(.22,.8,.24,1)] motion-reduce:transition-none"
         style={{ transform: `translate3d(-${active * 100}vw, 0, 0)` }}
       >
         {slides.map(({ id, label, Component }, index) => {
@@ -277,7 +290,7 @@ export function PresentationApp() {
             <div
               key={id}
               data-presentation-scroll={verticallyScrollable ? "true" : undefined}
-              className={`presentation-slide relative h-[calc(100vh-4rem)] w-screen shrink-0 ${
+              className={`presentation-slide relative h-[calc(100vh-2.75rem)] w-screen shrink-0 ${
                 verticallyScrollable ? "overflow-y-auto overflow-x-hidden" : "overflow-hidden"
               }`}
               aria-hidden={index !== active}

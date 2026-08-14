@@ -264,7 +264,7 @@
 }
 
 .presentation-slide:first-child .presentation-canvas > section {
-  min-height: calc(100vh - 4rem);
+  min-height: calc(100vh - 2.75rem);
 }
 
 .presentation-canvas > section:not(#top):not(#closing) {

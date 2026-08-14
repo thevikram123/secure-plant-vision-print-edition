@@ -89,12 +89,14 @@ export function PresentationApp() {
       if (inner) inner.style.maxWidth = `${Math.max(1152, viewportWidth - 96)}px`;
 
       const maxScale =
-        section.id === "top" || section.id === "closing"
+        section.id === "top"
           ? 1
+          : section.id === "closing"
+            ? 1.6
           : section.id === "as-is"
             ? 1.2
             : 1.3;
-      const minReadableScale = section.id === "to-be" ? 0.88 : 0;
+      const minReadableScale = 0;
 
       // Responsive layouts change height as their width changes. Search for the
       // largest scale that fits after reflow instead of reserving an empty band.
@@ -108,7 +110,7 @@ export function PresentationApp() {
         section.style.width = `${candidateWidth}px`;
         if (inner) inner.style.maxWidth = `${Math.max(1152, candidateWidth - 96)}px`;
         const candidateHeight = Math.max(section.scrollHeight, section.offsetHeight);
-        if (candidateHeight * candidate <= availableHeight + 0.5) {
+        if (candidateHeight * candidate <= availableHeight - 1) {
           fittedScale = candidate;
           low = candidate;
         } else {
@@ -297,7 +299,7 @@ export function PresentationApp() {
         style={{ transform: `translate3d(-${active * 100}vw, 0, 0)` }}
       >
         {slides.map(({ id, label, Component }, index) => {
-          const verticallyScrollable = id === "to-be";
+          const verticallyScrollable = false;
           return (
             <div
               key={id}

@@ -292,6 +292,35 @@
   max-width: 28rem;
 }
 
+.presentation-canvas #to-be {
+  padding-block: 1rem !important;
+}
+
+.presentation-canvas #to-be .architecture-grid {
+  gap: 0.65rem;
+}
+
+.presentation-canvas #to-be .architecture-layer-button {
+  padding-block: 0.6rem;
+}
+
+.presentation-canvas #to-be .architecture-flow-band {
+  padding-block: 0.25rem;
+}
+
+.presentation-canvas #to-be .architecture-footer {
+  margin-top: 1rem;
+  padding-top: 0.65rem;
+}
+
+.presentation-canvas #to-be .architecture-footer > p:nth-child(2) {
+  margin-top: 0.35rem;
+}
+
+.presentation-canvas #to-be .architecture-footer > div {
+  margin-top: 0.45rem;
+}
+
 @media print {
   @page {
     size: A4 landscape;

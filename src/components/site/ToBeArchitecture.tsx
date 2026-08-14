@@ -62,7 +62,7 @@ function Chip({ item, tone = "light" }: { item: Component; tone?: "light" | "dar
 
 function FlowBand({ label, lit }: { label: string; lit: boolean }) {
   return (
-    <div className="flex items-center justify-center gap-2.5 py-2">
+    <div className="architecture-flow-band flex items-center justify-center gap-2.5 py-2">
       <span
         className={cn("h-px flex-1 transition-colors", lit ? "bg-ey-yellow" : "bg-ey-yellow/30")}
       />
@@ -113,7 +113,7 @@ function Layer({
     <div
       style={{ transitionDelay: `${index * 90}ms` }}
       className={cn(
-        "transition-all duration-500 ease-out motion-reduce:transition-none",
+        "architecture-layer transition-all duration-500 ease-out motion-reduce:transition-none",
         shown ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
       )}
     >
@@ -153,7 +153,7 @@ function Layer({
           onFocus={onEnter}
           onBlur={onLeave}
           aria-expanded={open}
-          className="relative w-full px-4 py-4 text-left md:px-5"
+          className="architecture-layer-button relative w-full px-4 py-4 text-left md:px-5"
         >
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 md:gap-4">
             <span
@@ -350,7 +350,7 @@ export function ToBeArchitecture() {
     >
       <div
         ref={ref}
-        className="grid gap-3 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)_minmax(0,16rem)] lg:items-stretch lg:gap-4"
+        className="architecture-grid grid gap-3 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)_minmax(0,16rem)] lg:items-stretch lg:gap-4"
       >
         <CrossRail
           side="left"
@@ -399,7 +399,7 @@ export function ToBeArchitecture() {
         />
       </div>
 
-      <div className="mt-6 border-t border-ey-gold/50 pt-4">
+      <div className="architecture-footer mt-6 border-t border-ey-gold/50 pt-4">
         <p className="text-base font-semibold uppercase tracking-[0.22em] text-ey-gold">
           From devices to decisions
         </p>

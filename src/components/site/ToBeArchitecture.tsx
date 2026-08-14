@@ -342,6 +342,7 @@ export function ToBeArchitecture() {
   return (
     <SectionShell
       id="to-be"
+      className="overflow-hidden"
       eyebrow="Section 06"
       title="To-Be Integrated Security Architecture"
       intro="Read bottom-up: distributed sensing becomes transported data, then correlated intelligence, then coordinated human decision, then governed operational resilience — with cyber security and enterprise integration spanning every layer. Select any layer for the technical detail."

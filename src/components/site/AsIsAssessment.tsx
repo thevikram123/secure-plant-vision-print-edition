@@ -222,6 +222,7 @@ export function AsIsAssessment() {
   return (
     <SectionShell
       id="as-is"
+      className="overflow-hidden"
       eyebrow="Section 05"
       title="As-Is Security Assessment"
       intro="EY would assess the current security posture across the plant and its associated assets, on site and on record."

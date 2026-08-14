@@ -275,6 +275,23 @@
   margin-top: 1.5rem !important;
 }
 
+.presentation-canvas #as-is .as-is-layout {
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 2rem;
+}
+
+.presentation-canvas #as-is .as-is-framework {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: start;
+  gap: 1rem;
+}
+
+.presentation-canvas #as-is .as-is-wheel {
+  width: 100%;
+  max-width: 28rem;
+}
+
 @media print {
   @page {
     size: A4 landscape;

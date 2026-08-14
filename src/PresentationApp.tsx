@@ -13,6 +13,7 @@ import { Deliverables } from "@/components/site/Deliverables";
 import { WhyEy } from "@/components/site/WhyEy";
 import { CredentialsFootprint, PowerEngagements } from "@/components/site/Credentials";
 import { ClosingCta } from "@/components/site/ClosingCta";
+import eyLogo from "@/assets/ey-logo.png";
 
 const PRESENTATION_NAV_HEIGHT = 44;
 
@@ -87,8 +88,13 @@ export function PresentationApp() {
       section.style.overflowY = "visible";
       if (inner) inner.style.maxWidth = `${Math.max(1152, viewportWidth - 96)}px`;
 
-      const maxScale = section.id === "top" || section.id === "closing" ? 1 : 1.3;
-      const minReadableScale = section.id === "to-be" ? 0.82 : 0;
+      const maxScale =
+        section.id === "top" || section.id === "closing"
+          ? 1
+          : section.id === "as-is"
+            ? 1.2
+            : 1.3;
+      const minReadableScale = section.id === "to-be" ? 0.88 : 0;
 
       // Responsive layouts change height as their width changes. Search for the
       // largest scale that fits after reflow instead of reserving an empty band.
@@ -209,8 +215,14 @@ export function PresentationApp() {
       }}
     >
       <header className="presentation-header order-2 relative z-50 flex h-11 shrink-0 items-center border-t border-white/10 bg-[#1f1b19] px-3 text-white">
-        <a href="./" className="flex shrink-0 items-baseline gap-1.5 pr-3">
-          <span className="text-sm font-semibold">EY</span>
+        <a href="./" className="flex shrink-0 items-center gap-1.5 pr-3" aria-label="EY Security modernization">
+          <span className="relative block h-8 w-8 shrink-0 overflow-hidden rounded-sm bg-black" aria-hidden="true">
+            <img
+              src={eyLogo}
+              alt=""
+              className="absolute -left-[21px] -top-[9px] h-auto w-[73px] max-w-none"
+            />
+          </span>
           <span className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white/45 2xl:inline">
             Security modernization
           </span>

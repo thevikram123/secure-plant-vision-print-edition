@@ -227,17 +227,17 @@ export function AsIsAssessment() {
       title="As-Is Security Assessment"
       intro="EY would assess the current security posture across the plant and its associated assets, on site and on record."
     >
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
+      <div className="as-is-layout grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
         <div>
           <p className="text-base font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             Assessment framework — eight domains
           </p>
-          <div className="mt-5 flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+          <div className="as-is-framework mt-5 flex flex-col items-center gap-6 sm:flex-row sm:items-start">
             <svg
               viewBox="-55 -10 430 340"
               role="img"
               aria-label="Assessment maturity wheel across eight domains"
-              className="h-auto w-full max-w-[32rem] shrink-0 sm:w-[28rem]"
+              className="as-is-wheel h-auto w-full max-w-[32rem] shrink-0 sm:w-[28rem]"
             >
               {domains.map((d, i) => {
                 const start = i * step + GAP;

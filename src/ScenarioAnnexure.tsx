@@ -1,18 +1,22 @@
 import { ArrowLeft, ArrowRight, BookOpen, MapPin, ShieldCheck } from "lucide-react";
 
 import commandCentreScene from "@/assets/scenarios/command-centre-response.webp";
-import coalHandlingScene from "@/assets/scenarios/coal-handling-intrusion.webp";
-import perimeterScene from "@/assets/scenarios/perimeter-intrusion.webp";
-import switchyardScene from "@/assets/scenarios/switchyard-intrusion.webp";
 import { groupOrder, useCases, type UseCase } from "@/components/site/useCaseData";
 
-const printScenarioImages: Record<string, string> = {
-  "Generation and electrical assets": switchyardScene,
-  "Material and movement integrity": coalHandlingScene,
-  "Safety and process events": switchyardScene,
-  "Remote and distributed assets": perimeterScene,
-  "System integrity and investigation": commandCentreScene,
-};
+const printPageScenarioIds = [
+  [1, 2],
+  [3, 4, 5],
+  [6, 7],
+  [8, 9],
+  [10, 11],
+  [12, 13],
+  [14, 15, 16],
+  [17, 18],
+  [19, 20],
+  [21, 22],
+  [23, 24],
+  [25, 26],
+];
 
 export function ScenarioAnnexure() {
   return (
@@ -125,7 +129,10 @@ export function ScenarioAnnexure() {
         </div>
 
         <div className="annexure-print-register">
-          {useCases.map((scenario, pageIndex) => {
+          {printPageScenarioIds.map((scenarioIds, pageIndex) => {
+            const records = scenarioIds.map(
+              (scenarioId) => useCases.find((scenario) => scenario.id === scenarioId)!,
+            );
             return (
               <section className="annexure-print-spread" key={pageIndex}>
                 <div className="annexure-print-masthead">
@@ -133,10 +140,12 @@ export function ScenarioAnnexure() {
                     <p>ANNEXURE A / SECURITY SCENARIO REGISTER</p>
                     <h2>Operational scenarios · detect, correlate, respond</h2>
                   </div>
-                  <span>{String(pageIndex + 1).padStart(2, "0")} / 26</span>
+                  <span>{String(pageIndex + 1).padStart(2, "0")} / {printPageScenarioIds.length}</span>
                 </div>
-                <div className="annexure-print-grid">
-                  <PrintScenarioRecord scenario={scenario} />
+                <div className={`annexure-print-grid annexure-print-grid-${records.length}`}>
+                  {records.map((scenario) => (
+                    <PrintScenarioRecord key={scenario.id} scenario={scenario} />
+                  ))}
                 </div>
               </section>
             );
@@ -154,8 +163,6 @@ function PrintScenarioRecord({ scenario }: { scenario: UseCase }) {
   return (
     <article className="annexure-print-record">
       <div className="annexure-print-record-head">
-        <img src={printScenarioImages[scenario.group]} alt="" />
-        <div className="annexure-print-hero-shade" />
         <div className="annexure-print-number">{String(scenario.id).padStart(2, "0")}</div>
         <div>
           <p className="annexure-print-kicker">{scenario.group}</p>

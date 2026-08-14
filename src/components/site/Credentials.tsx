@@ -95,9 +95,22 @@ export function Credentials() {
           </div>
         </div>
 
-        <div className="mt-5 grid items-stretch gap-6 lg:grid-cols-[1.55fr_0.45fr]">
-          <div className="rounded-2xl bg-white/[0.025] p-3">
-            <div className="mx-auto h-[38rem] w-full lg:h-[58rem]">
+        <div className="mt-5 grid gap-5 lg:grid-cols-[0.72fr_1.56fr_0.72fr]">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
+            {columns.slice(0, 2).map((col) => (
+              <ProgrammeList
+                key={col.title}
+                title={col.title}
+                ids={col.ids}
+                activeCategory={activeCategory}
+                selectedId={selectedId}
+                onSelect={setSelectedId}
+              />
+            ))}
+          </div>
+
+          <div>
+            <div className="mx-auto h-[32rem] w-full lg:h-[44rem]">
               <IndiaMap
                 items={programmes}
                 activeCategory={activeCategory}
@@ -118,18 +131,7 @@ export function Credentials() {
                 </span>
               ))}
             </div>
-          </div>
 
-          <div className="flex flex-col justify-between gap-5 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-ey-yellow">
-                National delivery footprint
-              </p>
-              <p className="mt-3 text-3xl font-semibold leading-tight">40+ programmes across 18 states and union territories</p>
-              <p className="mt-4 text-base leading-relaxed text-white/60">
-                A delivery base spanning city surveillance, ICCCs, emergency response, fire and disaster management, power-sector monitoring and specialised security programmes.
-              </p>
-            </div>
             {selected ? (
               <div className="mt-3 rounded-2xl border border-ey-yellow/40 bg-navy-foreground/[0.06] p-4">
                 <p
@@ -147,31 +149,23 @@ export function Credentials() {
               </div>
             ) : null}
           </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
+            {columns.slice(2).map((col) => (
+              <ProgrammeList
+                key={col.title}
+                title={col.title}
+                ids={col.ids}
+                activeCategory={activeCategory}
+                selectedId={selectedId}
+                onSelect={setSelectedId}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Power-sector engagements — supporting strip */}
-    </SectionShell>
-
-    <SectionShell
-      id="credentials-programmes"
-      eyebrow="Section 09 · National programme index"
-      title="Surveillance and Command-Centre Programme Register"
-      intro="The complete programme index supporting the national footprint. Categories and project names are retained in full for reference and client discussion."
-      tone="dark"
-    >
-      <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4">
-        {columns.map((col) => (
-          <ProgrammeList
-            key={col.title}
-            title={col.title}
-            ids={col.ids}
-            activeCategory="all"
-            selectedId={null}
-            onSelect={setSelectedId}
-          />
-        ))}
-      </div>
     </SectionShell>
 
     <SectionShell

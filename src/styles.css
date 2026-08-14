@@ -407,7 +407,7 @@
     height: 210mm !important;
     max-height: 210mm !important;
     overflow: hidden !important;
-    padding: 0 !important;
+    padding: 9mm 11mm !important;
     box-sizing: border-box !important;
     background: #f5f2e9 !important;
     break-before: page;
@@ -415,12 +415,10 @@
   }
 
   .annexure-print-masthead {
-    height: 22mm;
+    height: 18mm;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 6mm 8mm 0 !important;
-    box-sizing: border-box !important;
     border-bottom: 1.5pt solid #201d1a;
   }
 
@@ -448,87 +446,64 @@
   }
 
   .annexure-print-grid {
-    height: 188mm;
+    height: 172mm;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 0 !important;
-    background: rgba(32, 29, 26, 0.16);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7mm;
+    padding-top: 6mm;
+    background: transparent;
+  }
+
+  .annexure-print-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4mm;
   }
 
   .annexure-print-record {
     min-height: 0;
     display: grid;
-    grid-template-rows: 72mm 25mm 38mm 1fr;
+    grid-template-rows: auto auto auto 1fr;
     overflow: hidden;
-    border: 0;
-    border-radius: 0;
+    border: 1px solid rgba(32, 29, 26, 0.12);
+    border-radius: 5mm;
     background: white;
   }
 
   .annexure-print-record-head {
-    position: relative;
-    min-height: 72mm;
-    overflow: hidden;
+    display: grid;
+    grid-template-columns: 20mm 1fr;
+    min-height: 38mm;
     border-bottom: 1px solid rgba(32, 29, 26, 0.1);
-    background: #201d1a;
-  }
-
-  .annexure-print-record-head > img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .annexure-print-hero-shade {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(32, 29, 26, 0.92) 0%, rgba(32, 29, 26, 0.68) 42%, rgba(32, 29, 26, 0.12) 100%);
+    background: white;
   }
 
   .annexure-print-number {
-    position: absolute;
-    left: 8mm;
-    top: 8mm;
-    z-index: 2;
-    width: 15mm;
-    height: 15mm;
     display: grid;
     place-items: center;
-    border-radius: 999px;
     background: #ffe600;
-    color: #201d1a;
-    font: 800 12pt ui-monospace, monospace;
+    font: 800 18pt ui-monospace, monospace;
   }
 
   .annexure-print-record-head > div:last-child {
-    position: absolute;
-    left: 8mm;
-    bottom: 8mm;
-    z-index: 2;
-    max-width: 175mm;
-    padding: 0;
-    color: white;
+    padding: 5mm;
+    color: #201d1a;
   }
 
   .annexure-print-record-head h3 {
     margin: 2mm 0 0;
-    font-size: 25pt !important;
+    font-size: 16pt !important;
     line-height: 1.05;
   }
 
   .annexure-print-record-head .annexure-print-kicker {
-    color: #ffe600 !important;
+    color: #716e67 !important;
   }
 
   .annexure-print-meta {
     margin: 2.5mm 0 0;
     font-size: 7pt !important;
     font-weight: 700;
-    color: rgba(255, 255, 255, 0.68);
+    color: #77736c;
   }
 
   .annexure-print-flow {
@@ -539,7 +514,7 @@
   }
 
   .annexure-print-flow-step {
-    min-height: 25mm;
+    min-height: 22mm;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -562,7 +537,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5mm;
-    padding: 5mm 8mm;
+    padding: 5mm;
     background: #faf9f5;
   }
 
@@ -579,23 +554,16 @@
   .annexure-print-response {
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
+    justify-content: center;
     padding: 5mm;
     border-top: 1px solid rgba(32, 29, 26, 0.1);
-    background: #201d1a;
-    color: white;
-  }
-
-  .annexure-print-response > p {
-    color: rgba(255, 255, 255, 0.48) !important;
+    background: white;
+    color: #201d1a;
   }
 
   .annexure-print-response ol {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-auto-rows: 1fr;
-    flex: 1;
-    gap: 2mm;
+    gap: 3mm;
     margin: 4mm 0 0;
     padding: 0;
     list-style: none;
@@ -606,10 +574,36 @@
     grid-template-columns: 7mm 1fr;
     align-items: center;
     gap: 3mm;
-    padding: 4mm;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.035);
     font-size: 7.5pt !important;
+  }
+
+  .annexure-print-grid-3 .annexure-print-record-head {
+    grid-template-columns: 16mm 1fr;
+  }
+
+  .annexure-print-grid-3 .annexure-print-number {
+    font-size: 13pt;
+  }
+
+  .annexure-print-grid-3 .annexure-print-record-head h3 {
+    font-size: 12.5pt !important;
+  }
+
+  .annexure-print-grid-3 .annexure-print-record-head > div:last-child {
+    padding: 4mm;
+  }
+
+  .annexure-print-grid-3 .annexure-print-flow-step,
+  .annexure-print-grid-3 .annexure-print-insight-grid,
+  .annexure-print-grid-3 .annexure-print-response {
+    padding-left: 3.5mm;
+    padding-right: 3.5mm;
+  }
+
+  .annexure-print-grid-3 .annexure-print-flow-step strong,
+  .annexure-print-grid-3 .annexure-print-insight-grid p:last-child,
+  .annexure-print-grid-3 .annexure-print-response li {
+    font-size: 6.6pt !important;
   }
 
   .annexure-print-response li span {

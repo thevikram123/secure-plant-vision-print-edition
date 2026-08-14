@@ -263,6 +263,10 @@
   display: none !important;
 }
 
+.presentation-slide:first-child .presentation-canvas > section {
+  min-height: calc(100vh - 4rem);
+}
+
 @media print {
   @page {
     size: A4 landscape;

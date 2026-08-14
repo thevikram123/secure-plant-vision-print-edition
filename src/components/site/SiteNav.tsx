@@ -55,7 +55,7 @@ export function SiteNav() {
             </a>
           </div>
         </div>
-        <nav className="hidden items-center gap-3 border-t border-hairline/60 pb-3 pt-2 xl:flex">
+        <nav className="flex items-center gap-3 overflow-x-auto border-t border-hairline/60 pb-3 pt-2">
           {links.map((l) => (
             <a
               key={l.href}

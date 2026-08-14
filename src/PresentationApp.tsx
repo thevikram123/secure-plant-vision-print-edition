@@ -66,8 +66,7 @@ export function PresentationApp() {
   const fitSlides = useCallback(() => {
     const root = rootRef.current;
     if (!root) return;
-    // Reserve the lower control rail so slide content is never hidden behind it.
-    const availableHeight = window.innerHeight - 72;
+    const availableHeight = window.innerHeight - 64;
     const viewportWidth = window.innerWidth;
 
     root.querySelectorAll<HTMLElement>(".presentation-slide").forEach((frame) => {
@@ -182,6 +181,7 @@ export function PresentationApp() {
       className="presentation-root relative h-screen w-screen overflow-hidden bg-navy"
       onWheel={onWheel}
       onPointerDown={(event) => {
+        if ((event.target as HTMLElement | null)?.closest(".presentation-header")) return;
         pointerStartRef.current = event.clientX;
       }}
       onPointerUp={(event) => {
@@ -191,14 +191,86 @@ export function PresentationApp() {
         goTo(active + (event.clientX < start ? 1 : -1));
       }}
     >
+      <header className="presentation-header relative z-50 flex h-16 items-center border-b border-white/10 bg-[#1f1b19] px-4 text-white">
+        <a href="./" className="flex shrink-0 items-baseline gap-2 pr-4">
+          <span className="text-lg font-semibold">EY</span>
+          <span className="hidden text-[10px] font-semibold uppercase tracking-[0.14em] text-white/45 2xl:inline">
+            Security modernization
+          </span>
+        </a>
+
+        <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto py-2" aria-label="Presentation sections">
+          {slides.map((slide, index) => (
+            <button
+              key={slide.id}
+              type="button"
+              onClick={() => goTo(index)}
+              className={`shrink-0 rounded-full px-3 py-2 text-[11px] font-semibold whitespace-nowrap transition-colors ${
+                index === active
+                  ? "bg-[#ffe600] text-[#1f1b19]"
+                  : "text-white/60 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              {slide.label}
+            </button>
+          ))}
+        </nav>
+
+        <div className="ml-3 flex shrink-0 items-center gap-1 border-l border-white/15 pl-3">
+          <button
+            type="button"
+            onClick={() => goTo(active - 1)}
+            disabled={active === 0}
+            className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10 disabled:opacity-30"
+            aria-label="Previous slide"
+          >
+            <ArrowLeft size={17} />
+          </button>
+          <span className="min-w-14 text-center font-mono text-[11px] text-white/60">
+            {String(active + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+          </span>
+          <button
+            type="button"
+            onClick={() => goTo(active + 1)}
+            disabled={active === slides.length - 1}
+            className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10 disabled:opacity-30"
+            aria-label="Next slide"
+          >
+            <ArrowRight size={17} />
+          </button>
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10"
+            aria-label={fullscreen ? "Exit full screen" : "Enter full screen"}
+          >
+            <Expand size={16} />
+          </button>
+          <a
+            href="./"
+            className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10"
+            aria-label="Exit presentation"
+          >
+            <X size={17} />
+          </a>
+        </div>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-black/20">
+          <div
+            className="h-full bg-[#ffe600] transition-[width] duration-500"
+            style={{ width: `${((active + 1) / slides.length) * 100}%` }}
+          />
+        </div>
+      </header>
+
       <main
-        className="flex h-screen transition-transform duration-500 ease-[cubic-bezier(.22,.8,.24,1)] motion-reduce:transition-none"
+        className="flex h-[calc(100vh-4rem)] transition-transform duration-500 ease-[cubic-bezier(.22,.8,.24,1)] motion-reduce:transition-none"
         style={{ transform: `translate3d(-${active * 100}vw, 0, 0)` }}
       >
         {slides.map(({ id, label, Component }, index) => (
           <div
             key={id}
-            className="presentation-slide relative h-screen w-screen shrink-0 overflow-hidden"
+            className="presentation-slide relative h-[calc(100vh-4rem)] w-screen shrink-0 overflow-hidden"
             aria-hidden={index !== active}
             aria-label={`${index + 1}. ${label}`}
           >
@@ -209,57 +281,6 @@ export function PresentationApp() {
         ))}
       </main>
 
-      <div className="fixed bottom-5 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/15 bg-[#1f1b19]/95 px-2 py-2 text-white shadow-2xl backdrop-blur">
-        <button
-          type="button"
-          onClick={() => goTo(active - 1)}
-          disabled={active === 0}
-          className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10 disabled:opacity-30"
-          aria-label="Previous slide"
-        >
-          <ArrowLeft size={17} />
-        </button>
-        <div className="min-w-36 px-2 text-center">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#ffe600]">
-            {slides[active]!.label}
-          </p>
-          <p className="mt-0.5 font-mono text-xs text-white/65">
-            {String(active + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={() => goTo(active + 1)}
-          disabled={active === slides.length - 1}
-          className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10 disabled:opacity-30"
-          aria-label="Next slide"
-        >
-          <ArrowRight size={17} />
-        </button>
-        <span className="mx-1 h-6 w-px bg-white/15" />
-        <button
-          type="button"
-          onClick={toggleFullscreen}
-          className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10"
-          aria-label={fullscreen ? "Exit full screen" : "Enter full screen"}
-        >
-          <Expand size={16} />
-        </button>
-        <a
-          href="./"
-          className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-white/10"
-          aria-label="Exit presentation"
-        >
-          <X size={17} />
-        </a>
-      </div>
-
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 h-1 bg-black/15">
-        <div
-          className="h-full bg-[#ffe600] transition-[width] duration-500"
-          style={{ width: `${((active + 1) / slides.length) * 100}%` }}
-        />
-      </div>
     </div>
   );
 }

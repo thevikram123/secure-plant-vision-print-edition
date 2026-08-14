@@ -1,7 +1,18 @@
 import { ArrowLeft, ArrowRight, BookOpen, MapPin, ShieldCheck } from "lucide-react";
 
 import commandCentreScene from "@/assets/scenarios/command-centre-response.webp";
+import coalHandlingScene from "@/assets/scenarios/coal-handling-intrusion.webp";
+import perimeterScene from "@/assets/scenarios/perimeter-intrusion.webp";
+import switchyardScene from "@/assets/scenarios/switchyard-intrusion.webp";
 import { groupOrder, useCases, type UseCase } from "@/components/site/useCaseData";
+
+const printScenarioImages: Record<string, string> = {
+  "Generation and electrical assets": switchyardScene,
+  "Material and movement integrity": coalHandlingScene,
+  "Safety and process events": switchyardScene,
+  "Remote and distributed assets": perimeterScene,
+  "System integrity and investigation": commandCentreScene,
+};
 
 export function ScenarioAnnexure() {
   return (
@@ -84,6 +95,7 @@ export function ScenarioAnnexure() {
           </div>
         </section>
 
+        <div className="annexure-screen-register">
         {groupOrder.map((group, groupIndex) => {
           const scenarios = useCases.filter((scenario) => scenario.group === group);
           return (
@@ -110,11 +122,74 @@ export function ScenarioAnnexure() {
             </section>
           );
         })}
+        </div>
+
+        <div className="annexure-print-register">
+          {useCases.map((scenario, pageIndex) => {
+            return (
+              <section className="annexure-print-spread" key={pageIndex}>
+                <div className="annexure-print-masthead">
+                  <div>
+                    <p>ANNEXURE A / SECURITY SCENARIO REGISTER</p>
+                    <h2>Operational scenarios · detect, correlate, respond</h2>
+                  </div>
+                  <span>{String(pageIndex + 1).padStart(2, "0")} / 26</span>
+                </div>
+                <div className="annexure-print-grid">
+                  <PrintScenarioRecord scenario={scenario} />
+                </div>
+              </section>
+            );
+          })}
+        </div>
       </main>
       <footer className="annexure-screen-nav border-t border-navy/10 px-5 py-6 text-center text-xs text-navy/45">
         Integrated Surveillance and Security Modernization for Power Generation Assets
       </footer>
     </div>
+  );
+}
+
+function PrintScenarioRecord({ scenario }: { scenario: UseCase }) {
+  return (
+    <article className="annexure-print-record">
+      <div className="annexure-print-record-head">
+        <img src={printScenarioImages[scenario.group]} alt="" />
+        <div className="annexure-print-hero-shade" />
+        <div className="annexure-print-number">{String(scenario.id).padStart(2, "0")}</div>
+        <div>
+          <p className="annexure-print-kicker">{scenario.group}</p>
+          <h3>{scenario.name}</h3>
+          <p className="annexure-print-meta">{scenario.zone}{scenario.plantTypes ? ` · ${scenario.plantTypes}` : ""}</p>
+        </div>
+      </div>
+
+      <div className="annexure-print-flow">
+        {[scenario.chain.detect, scenario.chain.correlate, scenario.chain.respond].map((item, index) => (
+          <div key={item} className="annexure-print-flow-step">
+            <span>0{index + 1}</span>
+            <strong>{item}</strong>
+          </div>
+        ))}
+      </div>
+
+      <div className="annexure-print-insight-grid">
+        <RecordText label="What it detects" body={scenario.detects} />
+        <RecordText label="Why it matters" body={scenario.matters} />
+      </div>
+
+      <div className="annexure-print-response">
+        <p>CONTROL-ROOM RESPONSE</p>
+        <ol>
+          {scenario.response.map((step, index) => (
+            <li key={step}>
+              <span>{index + 1}</span>
+              <strong>{step}</strong>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </article>
   );
 }
 

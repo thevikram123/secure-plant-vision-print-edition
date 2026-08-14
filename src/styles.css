@@ -247,6 +247,10 @@
 }
 
 /* Print edition: each section becomes a self-contained A4 reading page. */
+.annexure-print-register {
+  display: none;
+}
+
 @media print {
   @page {
     size: A4 landscape;
@@ -341,6 +345,281 @@
     min-height: 210mm !important;
     height: 210mm !important;
     padding: 0 !important;
+  }
+
+  .annexure-cover > div.relative {
+    position: relative !important;
+    height: 210mm !important;
+    width: 100% !important;
+    max-width: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    padding: 16mm 104mm 16mm 16mm !important;
+    box-sizing: border-box !important;
+  }
+
+  .annexure-cover > div.relative h1 {
+    max-width: 165mm !important;
+    font-size: 32pt !important;
+    line-height: 0.98 !important;
+  }
+
+  .annexure-cover > div.relative > p {
+    max-width: 155mm !important;
+  }
+
+  .annexure-cover > div.relative > div:last-child {
+    position: absolute !important;
+    right: 16mm !important;
+    bottom: 16mm !important;
+    width: 76mm !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1px !important;
+    margin: 0 !important;
+    border-radius: 5mm !important;
+  }
+
+  .annexure-cover > div.relative > div:last-child > div {
+    min-height: 20mm !important;
+    display: grid !important;
+    grid-template-columns: 12mm 1fr !important;
+    align-items: center !important;
+    gap: 3mm !important;
+    padding: 3mm 4mm !important;
+  }
+
+  .annexure-cover > div.relative > div:last-child p {
+    margin: 0 !important;
+  }
+
+  .annexure-screen-register {
+    display: none !important;
+  }
+
+  .annexure-print-register {
+    display: block !important;
+  }
+
+  .annexure-print-spread {
+    width: 297mm !important;
+    height: 210mm !important;
+    max-height: 210mm !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    background: #f5f2e9 !important;
+    break-before: page;
+    break-after: page;
+  }
+
+  .annexure-print-masthead {
+    height: 22mm;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 6mm 8mm 0 !important;
+    box-sizing: border-box !important;
+    border-bottom: 1.5pt solid #201d1a;
+  }
+
+  .annexure-print-masthead p,
+  .annexure-print-kicker,
+  .annexure-print-response > p {
+    margin: 0;
+    font-size: 6.5pt !important;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    color: #716e67;
+  }
+
+  .annexure-print-masthead h2 {
+    margin: 1.5mm 0 0;
+    font-size: 13pt !important;
+  }
+
+  .annexure-print-masthead > span {
+    border-radius: 999px;
+    background: #ffe600;
+    padding: 2.2mm 4mm;
+    color: #201d1a;
+    font: 700 7pt ui-monospace, monospace;
+  }
+
+  .annexure-print-grid {
+    height: 188mm;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 !important;
+    background: rgba(32, 29, 26, 0.16);
+  }
+
+  .annexure-print-record {
+    min-height: 0;
+    display: grid;
+    grid-template-rows: 72mm 25mm 38mm 1fr;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: white;
+  }
+
+  .annexure-print-record-head {
+    position: relative;
+    min-height: 72mm;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(32, 29, 26, 0.1);
+    background: #201d1a;
+  }
+
+  .annexure-print-record-head > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .annexure-print-hero-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(32, 29, 26, 0.92) 0%, rgba(32, 29, 26, 0.68) 42%, rgba(32, 29, 26, 0.12) 100%);
+  }
+
+  .annexure-print-number {
+    position: absolute;
+    left: 8mm;
+    top: 8mm;
+    z-index: 2;
+    width: 15mm;
+    height: 15mm;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #ffe600;
+    color: #201d1a;
+    font: 800 12pt ui-monospace, monospace;
+  }
+
+  .annexure-print-record-head > div:last-child {
+    position: absolute;
+    left: 8mm;
+    bottom: 8mm;
+    z-index: 2;
+    max-width: 175mm;
+    padding: 0;
+    color: white;
+  }
+
+  .annexure-print-record-head h3 {
+    margin: 2mm 0 0;
+    font-size: 25pt !important;
+    line-height: 1.05;
+  }
+
+  .annexure-print-record-head .annexure-print-kicker {
+    color: #ffe600 !important;
+  }
+
+  .annexure-print-meta {
+    margin: 2.5mm 0 0;
+    font-size: 7pt !important;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .annexure-print-flow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #201d1a;
+    color: white;
+  }
+
+  .annexure-print-flow-step {
+    min-height: 25mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5mm;
+    padding: 3.5mm;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .annexure-print-flow-step span {
+    font: 800 6pt ui-monospace, monospace !important;
+    color: #ffe600;
+  }
+
+  .annexure-print-flow-step strong {
+    font-size: 7.5pt;
+    line-height: 1.15;
+  }
+
+  .annexure-print-insight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5mm;
+    padding: 5mm 8mm;
+    background: #faf9f5;
+  }
+
+  .annexure-print-insight-grid p:first-child {
+    font-size: 6pt !important;
+  }
+
+  .annexure-print-insight-grid p:last-child {
+    margin-top: 2mm;
+    font-size: 8pt !important;
+    line-height: 1.4;
+  }
+
+  .annexure-print-response {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    padding: 5mm;
+    border-top: 1px solid rgba(32, 29, 26, 0.1);
+    background: #201d1a;
+    color: white;
+  }
+
+  .annexure-print-response > p {
+    color: rgba(255, 255, 255, 0.48) !important;
+  }
+
+  .annexure-print-response ol {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    flex: 1;
+    gap: 2mm;
+    margin: 4mm 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .annexure-print-response li {
+    display: grid;
+    grid-template-columns: 7mm 1fr;
+    align-items: center;
+    gap: 3mm;
+    padding: 4mm;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.035);
+    font-size: 7.5pt !important;
+  }
+
+  .annexure-print-response li span {
+    display: grid;
+    width: 7mm;
+    height: 7mm;
+    place-items: center;
+    border-radius: 999px;
+    background: #ffe600;
+    font: 800 6pt ui-monospace, monospace !important;
   }
 
   .annexure-guide {

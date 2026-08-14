@@ -30,6 +30,7 @@ export function Credentials() {
   const selected = useMemo(() => programmes.find((p) => p.id === selectedId) ?? null, [selectedId]);
 
   return (
+    <>
     <SectionShell
       id="credentials"
       eyebrow="Section 09"
@@ -94,24 +95,9 @@ export function Credentials() {
           </div>
         </div>
 
-        <div className="mt-5 grid gap-6 lg:grid-cols-[1fr_1.05fr_1fr]">
-          {/* left lists */}
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
-            {columns.slice(0, 2).map((col) => (
-              <ProgrammeList
-                key={col.title}
-                title={col.title}
-                ids={col.ids}
-                activeCategory={activeCategory}
-                selectedId={selectedId}
-                onSelect={setSelectedId}
-              />
-            ))}
-          </div>
-
-          {/* map */}
-          <div className="order-first lg:order-none">
-            <div className="mx-auto h-[26rem] w-full max-w-[24rem] lg:h-[34rem] lg:max-w-none">
+        <div className="mt-5 grid items-stretch gap-6 lg:grid-cols-[1.55fr_0.45fr]">
+          <div className="rounded-2xl bg-white/[0.025] p-3">
+            <div className="mx-auto h-[38rem] w-full lg:h-[58rem]">
               <IndiaMap
                 items={programmes}
                 activeCategory={activeCategory}
@@ -132,6 +118,18 @@ export function Credentials() {
                 </span>
               ))}
             </div>
+          </div>
+
+          <div className="flex flex-col justify-between gap-5 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-ey-yellow">
+                National delivery footprint
+              </p>
+              <p className="mt-3 text-3xl font-semibold leading-tight">40+ programmes across 18 states and union territories</p>
+              <p className="mt-4 text-base leading-relaxed text-white/60">
+                A delivery base spanning city surveillance, ICCCs, emergency response, fire and disaster management, power-sector monitoring and specialised security programmes.
+              </p>
+            </div>
             {selected ? (
               <div className="mt-3 rounded-2xl border border-ey-yellow/40 bg-navy-foreground/[0.06] p-4">
                 <p
@@ -149,25 +147,41 @@ export function Credentials() {
               </div>
             ) : null}
           </div>
-
-          {/* right lists */}
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
-            {columns.slice(2).map((col) => (
-              <ProgrammeList
-                key={col.title}
-                title={col.title}
-                ids={col.ids}
-                activeCategory={activeCategory}
-                selectedId={selectedId}
-                onSelect={setSelectedId}
-              />
-            ))}
-          </div>
         </div>
       </div>
 
       {/* Power-sector engagements — supporting strip */}
-      <div className="mt-6">
+    </SectionShell>
+
+    <SectionShell
+      id="credentials-programmes"
+      eyebrow="Section 09 · National programme index"
+      title="Surveillance and Command-Centre Programme Register"
+      intro="The complete programme index supporting the national footprint. Categories and project names are retained in full for reference and client discussion."
+      tone="dark"
+    >
+      <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4">
+        {columns.map((col) => (
+          <ProgrammeList
+            key={col.title}
+            title={col.title}
+            ids={col.ids}
+            activeCategory="all"
+            selectedId={null}
+            onSelect={setSelectedId}
+          />
+        ))}
+      </div>
+    </SectionShell>
+
+    <SectionShell
+      id="credentials-power"
+      eyebrow="Section 09 · Power-sector evidence"
+      title="Power Generation Engagements"
+      intro="Selected generation-sector assignments demonstrating the assessment, design, procurement and implementation-governance experience behind the proposed security modernisation approach."
+      tone="cream"
+    >
+      <div>
         <p className="text-base font-semibold uppercase tracking-[0.18em] text-ey-green-deep">
           Power generation engagements
         </p>
@@ -255,6 +269,7 @@ export function Credentials() {
         approval.
       </p>
     </SectionShell>
+    </>
   );
 }
 

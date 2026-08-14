@@ -21,19 +21,24 @@ const columns: Array<{ title: string; ids: string[] }> = [
 ];
 
 export function Credentials() {
+  return (
+    <>
+      <CredentialsFootprint />
+      <PowerEngagements />
+    </>
+  );
+}
+
+export function CredentialsFootprint() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [selectedId, setSelectedId] = useState<string | null>("delhi-safe");
-  const [openEngagement, setOpenEngagement] = useState<string | null>(
-    powerEngagements[0]?.client ?? null,
-  );
 
   const selected = useMemo(() => programmes.find((p) => p.id === selectedId) ?? null, [selectedId]);
 
   return (
-    <>
     <SectionShell
       id="credentials"
-      eyebrow="Section 09"
+      eyebrow="Section 09 (1/2)"
       title="Credentials"
       intro="A national surveillance, command-centre and emergency-response footprint — the delivery base for power-sector security modernization, supported by power generation engagements where EY has run as-is / to-be studies, DPRs, specifications, tendering and implementation governance."
       tone="cream"
@@ -167,10 +172,18 @@ export function Credentials() {
 
       {/* Power-sector engagements — supporting strip */}
     </SectionShell>
+  );
+}
 
+export function PowerEngagements() {
+  const [openEngagement, setOpenEngagement] = useState<string | null>(
+    powerEngagements[0]?.client ?? null,
+  );
+
+  return (
     <SectionShell
       id="credentials-power"
-      eyebrow="Section 09 · Power-sector evidence"
+      eyebrow="Section 09 (2/2) · Power-sector evidence"
       title="Power Generation Engagements"
       intro="Selected generation-sector assignments demonstrating the assessment, design, procurement and implementation-governance experience behind the proposed security modernisation approach."
       tone="cream"
@@ -263,7 +276,6 @@ export function Credentials() {
         approval.
       </p>
     </SectionShell>
-    </>
   );
 }
 

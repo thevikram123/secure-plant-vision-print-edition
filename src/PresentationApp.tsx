@@ -11,7 +11,7 @@ import { UseCases } from "@/components/site/UseCases";
 import { Offerings } from "@/components/site/Offerings";
 import { Deliverables } from "@/components/site/Deliverables";
 import { WhyEy } from "@/components/site/WhyEy";
-import { Credentials } from "@/components/site/Credentials";
+import { CredentialsFootprint, PowerEngagements } from "@/components/site/Credentials";
 import { ClosingCta } from "@/components/site/ClosingCta";
 
 const slides: Array<{ id: string; label: string; Component: ComponentType }> = [
@@ -25,7 +25,8 @@ const slides: Array<{ id: string; label: string; Component: ComponentType }> = [
   { id: "offerings", label: "EY support", Component: Offerings },
   { id: "deliverables", label: "Deliverables", Component: Deliverables },
   { id: "why-ey", label: "What EY brings", Component: WhyEy },
-  { id: "credentials", label: "Credentials", Component: Credentials },
+  { id: "credentials", label: "Credentials 1/2", Component: CredentialsFootprint },
+  { id: "credentials-power", label: "Credentials 2/2", Component: PowerEngagements },
   { id: "closing", label: "Next step", Component: ClosingCta },
 ];
 
@@ -85,14 +86,21 @@ export function PresentationApp() {
       if (inner) inner.style.maxWidth = `${Math.max(1152, viewportWidth - 96)}px`;
 
       const baseHeight = Math.max(section.scrollHeight, section.offsetHeight);
-      const baseScale = Math.min(1, availableHeight / baseHeight);
+      const maxScale = section.id === "why-ey" ? 1.16 : 1;
+      const minReadableScale = section.id === "to-be" ? 0.82 : 0;
+      const baseScale = Math.max(
+        minReadableScale,
+        Math.min(maxScale, availableHeight / baseHeight),
+      );
       const canvasWidth = viewportWidth / baseScale;
       canvas.style.width = `${canvasWidth}px`;
       section.style.width = `${canvasWidth}px`;
       if (inner) inner.style.maxWidth = `${Math.max(1152, canvasWidth - 96)}px`;
 
       const widenedHeight = Math.max(section.scrollHeight, section.offsetHeight);
-      const scale = Math.min(baseScale, availableHeight / widenedHeight);
+      const scale = minReadableScale
+        ? baseScale
+        : Math.min(baseScale, availableHeight / widenedHeight);
       const renderedWidth = canvasWidth * scale;
       canvas.style.left = `${(window.innerWidth - renderedWidth) / 2}px`;
       canvas.style.transform = `scale(${scale})`;
@@ -155,11 +163,7 @@ export function PresentationApp() {
       "[data-presentation-scroll]",
     );
     if (nestedScroller && Math.abs(event.deltaY) >= Math.abs(event.deltaX)) {
-      const canScrollUp = event.deltaY < 0 && nestedScroller.scrollTop > 0;
-      const canScrollDown =
-        event.deltaY > 0 &&
-        nestedScroller.scrollTop + nestedScroller.clientHeight < nestedScroller.scrollHeight - 1;
-      if (canScrollUp || canScrollDown) return;
+      if (nestedScroller.scrollHeight > nestedScroller.clientHeight + 1) return;
     }
 
     const now = Date.now();
@@ -267,18 +271,24 @@ export function PresentationApp() {
         className="flex h-[calc(100vh-4rem)] transition-transform duration-500 ease-[cubic-bezier(.22,.8,.24,1)] motion-reduce:transition-none"
         style={{ transform: `translate3d(-${active * 100}vw, 0, 0)` }}
       >
-        {slides.map(({ id, label, Component }, index) => (
-          <div
-            key={id}
-            className="presentation-slide relative h-[calc(100vh-4rem)] w-screen shrink-0 overflow-hidden"
-            aria-hidden={index !== active}
-            aria-label={`${index + 1}. ${label}`}
-          >
-            <div className="presentation-canvas absolute top-0 origin-top-left">
-              <Component />
+        {slides.map(({ id, label, Component }, index) => {
+          const verticallyScrollable = id === "to-be";
+          return (
+            <div
+              key={id}
+              data-presentation-scroll={verticallyScrollable ? "true" : undefined}
+              className={`presentation-slide relative h-[calc(100vh-4rem)] w-screen shrink-0 ${
+                verticallyScrollable ? "overflow-y-auto overflow-x-hidden" : "overflow-hidden"
+              }`}
+              aria-hidden={index !== active}
+              aria-label={`${index + 1}. ${label}`}
+            >
+              <div className="presentation-canvas absolute top-0 origin-top-left">
+                <Component />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </main>
 
     </div>

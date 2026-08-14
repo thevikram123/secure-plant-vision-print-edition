@@ -267,6 +267,14 @@
   min-height: calc(100vh - 4rem);
 }
 
+.presentation-canvas > section:not(#top):not(#closing) {
+  padding-block: 2rem !important;
+}
+
+.presentation-canvas > section:not(#top):not(#closing) > div > div:last-child {
+  margin-top: 1.5rem !important;
+}
+
 @media print {
   @page {
     size: A4 landscape;

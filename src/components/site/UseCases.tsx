@@ -4,6 +4,7 @@ import commandCentreScene from "@/assets/scenarios/command-centre-response.webp"
 import perimeterScene from "@/assets/scenarios/perimeter-intrusion.webp";
 
 import { SectionShell } from "./SectionShell";
+import { ScenarioWorkspace } from "./ScenarioWorkspace";
 import { groupOrder, useCases } from "./useCaseData";
 
 const responseModel = [
@@ -39,10 +40,14 @@ export function UseCases() {
       id="use-cases"
       eyebrow="Section 07"
       title="Security Scenario Coverage and Response Model"
-      intro="The main document summarises the operating coverage and common response logic. The complete 26-scenario register is issued separately as an A4 annexure."
+      intro="Coverage spans all 26 operating scenarios, linking field evidence and operational consequence to a verified control-room response."
       tone="tint"
     >
-      <div className="section-07-summary overflow-hidden rounded-[2rem] border border-navy/10 bg-white shadow-card">
+      <div className="interactive-only">
+        <ScenarioWorkspace />
+      </div>
+
+      <div className="static-only section-07-summary overflow-hidden rounded-[2rem] border border-navy/10 bg-white shadow-card">
         <div className="grid gap-px bg-navy/10 lg:grid-cols-[0.92fr_1.08fr]">
           <div className="relative min-h-[22rem] overflow-hidden bg-[#eee9dc]">
             <img

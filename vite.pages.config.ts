@@ -13,6 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(process.cwd(), "index.html"),
+        present: resolve(process.cwd(), "present.html"),
         annexure: resolve(process.cwd(), "scenario-annexure.html"),
       },
     },

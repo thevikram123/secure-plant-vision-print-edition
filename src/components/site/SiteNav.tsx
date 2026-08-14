@@ -40,12 +40,20 @@ export function SiteNav() {
               SECURITY MODERNIZATION FOR POWER GENERATION COMPANIES
             </span>
           </a>
-          <a
-            href="#closing"
-            className="shrink-0 rounded-md bg-navy px-3 py-1.5 text-sm font-semibold text-navy-foreground transition-opacity hover:opacity-90"
-          >
-            Request assessment
-          </a>
+          <div className="flex shrink-0 items-center gap-2">
+            <a
+              href="present.html"
+              className="rounded-md border border-navy/15 px-3 py-1.5 text-sm font-semibold text-navy transition-colors hover:border-navy/30 hover:bg-navy/[0.04]"
+            >
+              Present
+            </a>
+            <a
+              href="#closing"
+              className="rounded-md bg-navy px-3 py-1.5 text-sm font-semibold text-navy-foreground transition-opacity hover:opacity-90"
+            >
+              Request assessment
+            </a>
+          </div>
         </div>
         <nav className="hidden items-center gap-3 border-t border-hairline/60 pb-3 pt-2 xl:flex">
           {links.map((l) => (

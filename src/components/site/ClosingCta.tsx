@@ -17,7 +17,7 @@ export function ClosingCta() {
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <a
-              href="mailto:contact@example.com?subject=Security%20assessment%20discussion"
+              href="mailto:Raja.Bhattacharjee@in.ey.com?subject=Security%20assessment%20discussion"
               className="inline-flex items-center gap-2 rounded-md bg-[#ffe600] px-5 py-3 text-sm font-semibold text-navy"
             >
               Book an assessment discussion

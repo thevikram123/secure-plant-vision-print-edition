@@ -14,6 +14,7 @@ await page.goto("http://127.0.0.1:4174/index.html", { waitUntil: "networkidle" }
 await page.evaluate(() => {
   document.querySelectorAll("header, nav, footer, .print-hidden").forEach((element) => element.remove());
   document.documentElement.style.scrollBehavior = "auto";
+  document.documentElement.classList.add("static-capture");
   document.body.style.background = "#f5f2e9";
 
   // The screen deck's viewport-fit zoom excludes Section 2's final outcome row
@@ -21,12 +22,14 @@ await page.evaluate(() => {
   // other sections retain their intentionally compact screen composition.
   const staticStyles = document.createElement("style");
   staticStyles.textContent = `
-    #why-now {
+    #why-now,
+    #use-cases {
       zoom: 1 !important;
       max-height: none !important;
       overflow: visible !important;
     }
-    #why-now > div {
+    #why-now > div,
+    #use-cases > div {
       max-width: 72rem !important;
     }
     *, *::before, *::after {

@@ -251,6 +251,18 @@
   display: none;
 }
 
+.static-only {
+  display: none;
+}
+
+.static-capture .static-only {
+  display: block !important;
+}
+
+.static-capture .interactive-only {
+  display: none !important;
+}
+
 @media print {
   @page {
     size: A4 landscape;
@@ -273,6 +285,14 @@
   nav[aria-label="Section navigation"],
   .print-hidden {
     display: none !important;
+  }
+
+  .interactive-only {
+    display: none !important;
+  }
+
+  .static-only {
+    display: block !important;
   }
 
   main > section {
